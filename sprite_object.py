@@ -7,7 +7,11 @@ class SpriteObject:
     def __init__(self, game, path ='resources/textures/sprites/static_sprites/candlebra.png', pos=(10.5, 3.5), scale=0.7, shift =0.27):
         self.game = game
         self.player = game.player
-        self.x, self.y = pos
+        try:
+            self.x, self.y = pos
+        except ValueError as e:
+            print(f"Error unpacking pos in SpriteObject: {e}")
+            print("pos =", pos)
         self.image = pg.image.load(path).convert_alpha()
         self.IMAGE_WIDTH = self.image.get_width()
         self.IMAGE_HALF_WIDTH = self.image.get_width() // 2
