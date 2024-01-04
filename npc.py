@@ -1,5 +1,6 @@
+import random
 from sprite_object import *
-from random import randint
+from random import randint 
 from weapon import *
 from pathfinding import *
 
@@ -60,6 +61,9 @@ class NPC(AnimatedSprite):
     def attack(self):
         if self.animation_trigger:
             self.game.sound.npc_shot.play()
+            if random.random() < self.accuracy:
+                self.game.player.get_damage(self.attack_damage)
+            
     
     def animate_death(self):
         if not self.alive:
@@ -101,6 +105,7 @@ class NPC(AnimatedSprite):
                 if self.dist < self.attack_dist:
                     self.animate(self.walk_images)
                     self.movement()
+                    self.attack()
                 else:
                     self.animate(self.walk_images)
                     self.movement()

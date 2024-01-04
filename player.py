@@ -1,6 +1,7 @@
 from settings import *
 import pygame as pg
 import math
+from object_render import *
 
 class Player:
     def __init__(self, game):
@@ -8,6 +9,13 @@ class Player:
         self.x, self.y = PLAYER_POS
         self.angle = PLAYER_ANGLE
         self.shot = False
+        self.health = PLAYER_MAX_HEALTH
+    
+    def get_damage(self, damage):
+        self.health -= damage
+        self.game.object_render.player_damage()
+        self.game.sound.player_pain.play()
+    
     
     def single_fire_event(self, event):
         if event.type == pg.MOUSEBUTTONDOWN:
